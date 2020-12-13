@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "dev": "webpack",
-        "dev:server": "nodemon dist/test.js"
+        "dev:server": "nodemon dist/testScript.js"
     },
     "keywords": [],
     "author": "",
@@ -16,12 +16,15 @@
         "redis": "^3.0.2"
     },
     "devDependencies": {
+        "@types/jest": "^26.0.19",
         "@typescript-eslint/eslint-plugin": "^4.9.1",
         "@typescript-eslint/parser": "^4.9.1",
         "eslint": "^7.15.0",
         "eslint-loader": "^4.0.2",
         "eslint-plugin-react": "^7.21.5",
+        "jest": "^26.6.3",
         "nodemon": "^2.0.6",
+        "ts-jest": "^26.4.4",
         "ts-loader": "^8.0.12",
         "tsconfig-paths-webpack-plugin": "^3.3.0",
         "typescript": "^4.1.3",
