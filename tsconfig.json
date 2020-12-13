@@ -5,6 +5,12 @@
         "declaration": true,
         "outDir": "./dist",
         "rootDir": "./src",
-        "strict": true
+        "strict": true,
+        "baseUrl": "./",
+        "paths": {
+            "@utils/*": ["src/@core/utils/*"],
+            "@models/*": ["src/@core/models/*"],
+            "@features/*": ["src/@features/*"]
+        }
     }
 }
