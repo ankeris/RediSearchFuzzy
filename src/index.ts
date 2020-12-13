@@ -8,7 +8,7 @@ export class RediSearchFuzzy {
         this.client = redisClient;
     }
 
-    public createIndexList<T>(listName: string, objectSchema: IObjectSchema<T>): string {
+    public createIndexList<T>(listName: string, objectSchema: IObjectSchema): string {
         return createFuzzyList({ context: this, listName, objectSchema });
     }
 }
