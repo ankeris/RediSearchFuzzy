@@ -7,6 +7,6 @@ export interface ICreateFuzzyListParams<O> {
 }
 
 export const createFuzzyList = <Obj>({ context, objectSchema, listName }: ICreateFuzzyListParams<Obj>): string => {
-    console.log(context.client.send_command());
+    // console.log(context.client.send_command());
     return "hi";
 };
