@@ -1,12 +1,18 @@
+import { IObjectSchema } from "@models/ObjectSchema.type";
+import { generateSchemaIndexCommand } from "@utils/generateSchema";
 import { RediSearchFuzzy } from "src";
 
-export interface ICreateFuzzyListParams<O> {
+export interface ICreateFuzzyListParams {
     context: RediSearchFuzzy;
-    objectSchema: O;
-    listName: string;
+    schema: IObjectSchema;
+    indexName: string;
 }
 
-export const createFuzzyList = <Obj>({ context, objectSchema, listName }: ICreateFuzzyListParams<Obj>): string => {
-    // console.log(context.client.send_command());
-    return "hi";
+export const createFuzzyList = ({ context, schema, indexName }: ICreateFuzzyListParams): boolean => {
+    try {
+        const { cmd, args } = generateSchemaIndexCommand({ indexName, schema });
+        return context.client.send_command(cmd, args);
+    } catch (error) {
+        throw error;
+    }
 };
