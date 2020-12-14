@@ -16,3 +16,5 @@ export const createIndexList = ({ context, schema, indexName }: ICreateFuzzyList
         throw error;
     }
 };
+
+// export const getIndexList = ({indexName})

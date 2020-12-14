@@ -1,6 +1,6 @@
 import { RedisClient } from "redis";
 import { IObjectSchema } from "@models/ObjectSchema.type";
-import { createIndexList as _createIndexList } from "./@features/createIndexList/createIndexList";
+import { createIndexList as _createIndexList } from "./@features/index/indexList.service";
 
 export class RediSearchFuzzy {
     public readonly client;
