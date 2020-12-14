@@ -1,4 +1,4 @@
-import { generateSchemaIndexCommand } from "../generateSchema";
+import { generateSchemaIndexCommand } from "../commands";
 
 describe("generateSchemaIndexCommand()", () => {
     it("generateSchemaIndexCommand should throw errors", () => {
