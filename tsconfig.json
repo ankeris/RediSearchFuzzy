@@ -9,6 +9,7 @@
         "baseUrl": "./",
         "paths": {
             "@utils/*": ["src/@core/utils/*"],
+            "@enums/*": ["src/@core/enums/*"],
             "@models/*": ["src/@core/models/*"],
             "@features/*": ["src/@features/*"]
         }

@@ -1,1 +1,1 @@
-{ "eslint.workingDirectories": ["../src"] }
+{ "eslint.workingDirectories": ["../src"], "eslint.validate": ["typescript", "javascript"] }
