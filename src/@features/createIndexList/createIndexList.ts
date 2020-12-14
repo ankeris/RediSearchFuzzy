@@ -8,7 +8,7 @@ export interface ICreateFuzzyListParams {
     indexName: string;
 }
 
-export const createFuzzyList = ({ context, schema, indexName }: ICreateFuzzyListParams): boolean => {
+export const createIndexList = ({ context, schema, indexName }: ICreateFuzzyListParams): boolean => {
     try {
         const { cmd, args } = generateSchemaIndexCommand({ indexName, schema });
         return context.client.send_command(cmd, args);

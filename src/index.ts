@@ -1,14 +1,14 @@
 import { RedisClient } from "redis";
 import { IObjectSchema } from "@models/ObjectSchema.type";
-import { createFuzzyList } from "./@features/createFuzzyList/createFuzzyList";
+import { createIndexList as _createIndexList } from "./@features/createIndexList/createIndexList";
 
 export class RediSearchFuzzy {
-    public client;
+    public readonly client;
     constructor(redisClient: RedisClient) {
         this.client = redisClient;
     }
 
     public createIndexList(indexName: string, schema: IObjectSchema): boolean {
-        return createFuzzyList({ context: this, indexName, schema });
+        return _createIndexList({ context: this, indexName, schema });
     }
 }
