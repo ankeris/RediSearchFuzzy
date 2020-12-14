@@ -1,6 +1,6 @@
 import { RediSearchCommands } from "@enums/redisCommands.enum";
 import { IObjectSchema } from "@models/ObjectSchema.type";
-import { generateSchemaIndexCommand } from "@utils/commands";
+import { generateAddDocumentCommand, generateSchemaIndexCommand } from "@utils/commands";
 import { RediSearchFuzzy } from "src";
 
 export interface ICreateIndexListParams {
@@ -14,6 +14,9 @@ export interface ICreateIndexListParams {
 }
 
 interface IGetIndexListParams extends Omit<ICreateIndexListParams, "schema"> {}
+interface IAddDocumentParams extends Omit<ICreateIndexListParams, "schema"> {
+    document: object;
+}
 
 export const createIndexList = ({ context, schema, indexName }: ICreateIndexListParams): boolean => {
     try {
@@ -34,9 +37,29 @@ export const getInfoIndexList = ({ context, indexName }: IGetIndexListParams): P
     }
 };
 
+export const getAllIndexes = ({ context }: { context: RediSearchFuzzy }): Promise<string[]> => {
+    try {
+        return new Promise((resolve) =>
+            context.client.send_command(RediSearchCommands.INDEX_LIST, [], (_, info) => resolve(info))
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const removeIndexList = ({ context, indexName }: IGetIndexListParams): boolean => {
     try {
         return context.client.send_command(RediSearchCommands.INDEX_DROP, [indexName]);
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const addDocument = ({ context, indexName, document }: IAddDocumentParams): boolean => {
+    try {
+        const { cmd, args } = generateAddDocumentCommand({ document });
+        context.client.hset(indexName, []);
+        return context.client.send_command(RediSearchCommands.INDEX_ADD_DOC, [indexName]);
     } catch (error) {
         throw error;
     }

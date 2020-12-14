@@ -7,6 +7,7 @@
         "rootDir": "./src",
         "strict": true,
         "baseUrl": "./",
+        "noImplicitAny": true,
         "paths": {
             "@utils/*": ["src/@core/utils/*"],
             "@enums/*": ["src/@core/enums/*"],
