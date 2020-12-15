@@ -31,7 +31,9 @@ export class RediSearchFuzzy {
         return _removeIndexList({ context: this, indexName });
     }
 
-    public addDocument(indexName: string, document: object): boolean {
+    public addDocument(indexName: string, document: Record<string, unknown>): boolean {
         return _addDocument({ context: this, indexName, document });
     }
+
+    // TASK: add searchDocuments() functionality here:
 }

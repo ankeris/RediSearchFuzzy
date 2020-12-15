@@ -15,7 +15,7 @@ export interface ICreateIndexListParams {
 
 interface IGetIndexListParams extends Omit<ICreateIndexListParams, "schema"> {}
 interface IAddDocumentParams extends Omit<ICreateIndexListParams, "schema"> {
-    document: object;
+    document: Record<string, unknown>;
 }
 
 export const createIndexList = ({ context, schema, indexName }: ICreateIndexListParams): boolean => {
@@ -57,9 +57,8 @@ export const removeIndexList = ({ context, indexName }: IGetIndexListParams): bo
 
 export const addDocument = ({ context, indexName, document }: IAddDocumentParams): boolean => {
     try {
-        const { cmd, args } = generateAddDocumentCommand({ document });
-        context.client.hset(indexName, []);
-        return context.client.send_command(RediSearchCommands.INDEX_ADD_DOC, [indexName]);
+        const { args } = generateAddDocumentCommand({ document });
+        return context.client.hset(indexName, args);
     } catch (error) {
         throw error;
     }
