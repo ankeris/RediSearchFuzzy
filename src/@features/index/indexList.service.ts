@@ -1,6 +1,6 @@
 import { RediSearchCommands } from "@enums/redisCommands.enum";
 import { IObjectSchema } from "@models/ObjectSchema.type";
-import { generateAddDocumentCommand, generateSchemaIndexCommand } from "@utils/commands";
+import { generateAddDocumentCommandArgs, generateSchemaIndexCommand } from "@utils/commands";
 import { RediSearchFuzzy } from "src";
 
 export interface ICreateIndexListParams {
@@ -14,8 +14,10 @@ export interface ICreateIndexListParams {
 }
 
 interface IGetIndexListParams extends Omit<ICreateIndexListParams, "schema"> {}
-interface IAddDocumentParams extends Omit<ICreateIndexListParams, "schema"> {
-    document: Record<string, unknown>;
+interface IAddDocumentParams {
+    context: RediSearchFuzzy;
+    document: Record<string, string>;
+    key: string;
 }
 
 export const createIndexList = ({ context, schema, indexName }: ICreateIndexListParams): boolean => {
@@ -55,10 +57,10 @@ export const removeIndexList = ({ context, indexName }: IGetIndexListParams): bo
     }
 };
 
-export const addDocument = ({ context, indexName, document }: IAddDocumentParams): boolean => {
+export const addDocument = ({ context, key, document }: IAddDocumentParams): boolean => {
     try {
-        const { args } = generateAddDocumentCommand({ document });
-        return context.client.hset(indexName, args);
+        const { args } = generateAddDocumentCommandArgs({ document });
+        return context.client.hset(key, args);
     } catch (error) {
         throw error;
     }
