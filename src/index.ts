@@ -1,5 +1,5 @@
 import { RedisClient } from "redis";
-import { IObjectSchema } from "@models/ObjectSchema.type";
+import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import {
     createIndexList as _createIndexList,
     getInfoIndexList as _getInfoIndexList,

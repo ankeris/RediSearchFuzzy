@@ -1,5 +1,5 @@
 import { RediSearchCommands } from "@enums/redisCommands.enum";
-import { IObjectSchema } from "@models/ObjectSchema.type";
+import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { generateAddDocumentCommandArgs, generateSchemaIndexCommand } from "@utils/commands";
 import { RediSearchFuzzy } from "src";
 

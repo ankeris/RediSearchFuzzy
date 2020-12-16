@@ -1,4 +1,4 @@
-import { IObjectSchema } from "@models/ObjectSchema.type";
+import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { RediSearchCommands } from "@enums/redisCommands.enum";
 
 interface ICommandReturn {
