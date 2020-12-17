@@ -2,23 +2,7 @@ import { RediSearchCommands } from "@enums/redisCommands.enum";
 import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { generateAddDocumentCommandArgs, generateSchemaIndexCommand } from "@utils/commands";
 import { RediSearchFuzzy } from "src";
-
-export interface ICreateIndexListParams {
-    context: RediSearchFuzzy;
-    schema: IObjectSchema;
-    indexName: string;
-    options?: {
-        /** PREFIX {count} {prefix} tells the index which keys it should index. You can add several prefixes to index. Since the argument is optional, the default is * (all keys) */
-        prefix: string;
-    };
-}
-
-interface IGetIndexListParams extends Omit<ICreateIndexListParams, "schema"> {}
-interface IAddDocumentParams {
-    context: RediSearchFuzzy;
-    document: Record<string, string>;
-    key: string;
-}
+import { IAddDocumentParams, ICreateIndexListParams, IGetIndexListParams } from "./types/index.type";
 
 export const createIndexList = ({ context, schema, indexName }: ICreateIndexListParams): boolean => {
     try {

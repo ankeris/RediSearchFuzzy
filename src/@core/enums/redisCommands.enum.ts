@@ -3,4 +3,5 @@ export enum RediSearchCommands {
     INDEX_INFO = "FT.INFO",
     INDEX_DROP = "FT.DROPINDEX",
     INDEX_LIST = "FT._LIST",
+    INDEX_SEARCH = "FT.SEARCH",
 }

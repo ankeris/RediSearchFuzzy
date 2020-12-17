@@ -23,5 +23,19 @@ describe("generateSchemaIndexCommand()", () => {
             },
         });
         expect(generateAddDocumentCommandArgs).toHaveBeenCalledWith({ document: { testKey: "testValue" } });
+        addDocument({
+            context: new RediSearchFuzzy({} as RedisClient),
+            key: "xx",
+            document: {
+                name: "Robert",
+                lastname: "California",
+            },
+        });
+        expect(generateAddDocumentCommandArgs).toHaveBeenCalledWith({
+            document: {
+                name: "Robert",
+                lastname: "California",
+            },
+        });
     });
 });
