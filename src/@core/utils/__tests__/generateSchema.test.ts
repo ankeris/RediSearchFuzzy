@@ -69,4 +69,31 @@ describe("generateSchemaIndexCommand()", () => {
             })
         ).toEqual({ cmd: "FT.CREATE", args: ["myIdx", "SCHEMA", "title", "TEXT", "WEIGHT", "5.6", "url", "TEXT"] });
     });
+
+    it("generateSchemaIndexCommand should handle options as well", () => {
+        expect(
+            generateSchemaIndexCommand({
+                indexName: "myIdx",
+                schema: [{ field: "title", weight: 5.5 }, { field: "url" }],
+                options: ["ON", "HASH", "PREFIX", "1", "test"],
+            })
+        ).toEqual({
+            cmd: "FT.CREATE",
+            args: [
+                "myIdx",
+                "ON",
+                "HASH",
+                "PREFIX",
+                "1",
+                "test",
+                "SCHEMA",
+                "title",
+                "TEXT",
+                "WEIGHT",
+                "5.5",
+                "url",
+                "TEXT",
+            ],
+        });
+    });
 });

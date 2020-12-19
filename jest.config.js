@@ -4,6 +4,7 @@ module.exports = {
     moduleNameMapper: {
         "@enums/(.*)": ["<rootDir>/src/@core/enums/$1"],
         "@utils/(.*)": ["<rootDir>/src/@core/utils/$1"],
+        "@features/(.*)": ["<rootDir>/src/@features/$1"],
     },
     modulePathIgnorePatterns: ["<rootDir>/dist/"],
 };

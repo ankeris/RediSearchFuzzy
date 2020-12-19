@@ -1,19 +1,21 @@
-import { generateSearchDocumentCommandArgs } from "@utils/commands";
-import { IIndexParamsBase, ISearchDocuments } from "./types/index.type";
+import { convertStringToFuzzy, generateSearchDocumentCommandArgs } from "@utils/commands";
+import { IServiceWithContext, ISearchDocuments } from "./types/index.type";
 
-type SearchDocumentsFunctionParams = ISearchDocuments & IIndexParamsBase;
+type SearchDocumentsFunctionParams = ISearchDocuments & IServiceWithContext;
 type SearchDocumentsFunction = (params: SearchDocumentsFunctionParams) => Promise<unknown>;
-export const searchDocuments: SearchDocumentsFunction = ({
-    context,
-    indexName,
-    query,
-    options = {},
-    useFuzzy = false,
-}) => {
+export const searchDocuments: SearchDocumentsFunction = ({ context, indexName, query, options, useFuzzy = false }) => {
     try {
-        const { cmd, args } = generateSearchDocumentCommandArgs({ indexName, query, options });
-        return new Promise((resolve) =>
-            context.client.send_command(cmd, args, (_: unknown, info: unknown) => resolve(info))
+        const conditionallyCheckedQuery = useFuzzy ? convertStringToFuzzy(query) : query;
+        const { cmd, args } = generateSearchDocumentCommandArgs({
+            indexName,
+            query: conditionallyCheckedQuery,
+            options,
+        });
+        return new Promise((resolve, reject) =>
+            context.client.send_command(cmd, args, (err: unknown, info: unknown) => {
+                if (err) return reject(err);
+                resolve(info);
+            })
         );
     } catch (error) {
         throw error;

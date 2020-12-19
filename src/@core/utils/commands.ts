@@ -1,6 +1,6 @@
 import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { RediSearchCommands } from "@enums/redisCommands.enum";
-import { ISearchDocuments } from "@features/index/types/index.type";
+import { ICreateIndexListParams, ISearchDocuments } from "@features/index/types/index.type";
 
 interface ICommandReturn {
     cmd: string;
@@ -10,9 +10,8 @@ interface ICommandReturn {
 const SCHEMA = "SCHEMA";
 const TEXT_TYPE = "TEXT";
 const WEIGHT = "WEIGHT";
-type IGenerateSchemaParams = { indexName: string; schema: IObjectSchema };
-type IGenerateSchemaIndexFunction = (params: IGenerateSchemaParams) => ICommandReturn;
-export const generateSchemaIndexCommand: IGenerateSchemaIndexFunction = ({ indexName, schema }) => {
+type IGenerateSchemaIndexFunction = (params: ICreateIndexListParams) => ICommandReturn;
+export const generateSchemaIndexCommand: IGenerateSchemaIndexFunction = ({ indexName, schema, options }) => {
     if (!schema.length) throw new Error("Empty or false Schema Object given");
     return schema.reduce(
         (acc: ICommandReturn, currVal) => {
@@ -22,7 +21,10 @@ export const generateSchemaIndexCommand: IGenerateSchemaIndexFunction = ({ index
                 return { ...acc, args: [...acc.args, currVal.field, TEXT_TYPE] };
             }
         },
-        { cmd: RediSearchCommands.INDEX_CREATE, args: [indexName, SCHEMA] }
+        {
+            cmd: RediSearchCommands.INDEX_CREATE,
+            args: options?.length ? [indexName, ...options, SCHEMA] : [indexName, SCHEMA],
+        }
     );
 };
 
@@ -37,10 +39,17 @@ export const generateAddDocumentCommandArgs: IGenerateAddDocumentFunction = ({ d
     }, initialAccumulator);
 };
 
+export const convertStringToFuzzy = (string: string) => {
+    if (typeof string !== "string") throw new Error("Must be a string");
+    if (!string.length || !string.trim().length) return "";
+    const arrOfStrings = string.split(" ");
+    const lastWord = arrOfStrings[arrOfStrings.length - 1];
+    const wordsWrapperWithPercentSign = arrOfStrings.map((word) => `%${word}%`);
+    return `(${wordsWrapperWithPercentSign.join("&")}|${lastWord}*)`;
+};
+
 type IGenerateSearchDocumentFunction = (params: ISearchDocuments) => ICommandReturn;
 export const generateSearchDocumentCommandArgs: IGenerateSearchDocumentFunction = ({ indexName, query, options }) => {
-    if (options) {
-        const optionsKeys = Object.keys(options);
-    }
-    return { cmd: RediSearchCommands.INDEX_SEARCH, args: [indexName, query] };
+    const args = options?.length ? [indexName, query, ...options] : [indexName, query];
+    return { cmd: RediSearchCommands.INDEX_SEARCH, args };
 };

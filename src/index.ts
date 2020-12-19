@@ -8,7 +8,7 @@ import {
     addDocument as _addDocument,
 } from "./@features/index/indexList.service";
 import { searchDocuments as _searchDocuments } from "@features/index/indexSearch.service";
-import { ISearchDocuments } from "@features/index/types/index.type";
+import { ICreateIndexListParams, ISearchDocuments } from "@features/index/types/index.type";
 
 export class RediSearchFuzzy {
     public readonly client;
@@ -17,8 +17,8 @@ export class RediSearchFuzzy {
         this.client = redisClient;
     }
 
-    public createIndexList(indexName: string, schema: IObjectSchema): boolean {
-        return _createIndexList({ context: this, indexName, schema });
+    public createIndexList({ indexName, schema, options }: ICreateIndexListParams): boolean {
+        return _createIndexList({ context: this, indexName, schema, options });
     }
 
     public async getInfoIndexList(indexName: string): Promise<string[]> {
@@ -37,7 +37,7 @@ export class RediSearchFuzzy {
         return _addDocument({ context: this, key, document });
     }
 
-    public searchDocuments(params: ISearchDocuments): Promise<unknown> {
-        return _searchDocuments({ ...params, context: this });
+    public searchDocuments({ indexName, query, useFuzzy, options }: ISearchDocuments): Promise<unknown> {
+        return _searchDocuments({ context: this, indexName, query, useFuzzy, options });
     }
 }
