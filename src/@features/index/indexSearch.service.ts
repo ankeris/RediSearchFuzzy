@@ -1,10 +1,19 @@
-import { RediSearchCommands } from "@enums/redisCommands.enum";
-import { ISearchDocuments } from "./types/index.type";
+import { generateSearchDocumentCommandArgs } from "@utils/commands";
+import { IIndexParamsBase, ISearchDocuments } from "./types/index.type";
 
-export const searchDocuments = ({ context, indexName, query }: ISearchDocuments): Promise<string[]> => {
+type SearchDocumentsFunctionParams = ISearchDocuments & IIndexParamsBase;
+type SearchDocumentsFunction = (params: SearchDocumentsFunctionParams) => Promise<unknown>;
+export const searchDocuments: SearchDocumentsFunction = ({
+    context,
+    indexName,
+    query,
+    options = {},
+    useFuzzy = false,
+}) => {
     try {
+        const { cmd, args } = generateSearchDocumentCommandArgs({ indexName, query, options });
         return new Promise((resolve) =>
-            context.client.send_command(RediSearchCommands.INDEX_SEARCH, [indexName], (_, info) => resolve(info))
+            context.client.send_command(cmd, args, (_: unknown, info: unknown) => resolve(info))
         );
     } catch (error) {
         throw error;

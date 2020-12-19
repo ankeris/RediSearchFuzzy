@@ -1,22 +1,18 @@
 import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { RediSearchCommands } from "@enums/redisCommands.enum";
+import { ISearchDocuments } from "@features/index/types/index.type";
 
 interface ICommandReturn {
     cmd: string;
     args: Array<string>;
 }
 
-type IGenerateSchemaParams = { indexName: string; schema: IObjectSchema };
-type IGenerateSchemaIndexCmd = (params: IGenerateSchemaParams) => ICommandReturn;
-
-type IGenerateAddDocumentParams = { document: Record<string, unknown> };
-type IGenerateAddDocumentCmd = (params: IGenerateAddDocumentParams) => Omit<ICommandReturn, "cmd">;
-
 const SCHEMA = "SCHEMA";
 const TEXT_TYPE = "TEXT";
 const WEIGHT = "WEIGHT";
-
-export const generateSchemaIndexCommand: IGenerateSchemaIndexCmd = ({ indexName, schema }) => {
+type IGenerateSchemaParams = { indexName: string; schema: IObjectSchema };
+type IGenerateSchemaIndexFunction = (params: IGenerateSchemaParams) => ICommandReturn;
+export const generateSchemaIndexCommand: IGenerateSchemaIndexFunction = ({ indexName, schema }) => {
     if (!schema.length) throw new Error("Empty or false Schema Object given");
     return schema.reduce(
         (acc: ICommandReturn, currVal) => {
@@ -30,11 +26,21 @@ export const generateSchemaIndexCommand: IGenerateSchemaIndexCmd = ({ indexName,
     );
 };
 
-export const generateAddDocumentCommandArgs: IGenerateAddDocumentCmd = ({ document }) => {
+type IGenerateAddDocumentParams = { document: Record<string, unknown> };
+type IGenerateAddDocumentFunction = (params: IGenerateAddDocumentParams) => Omit<ICommandReturn, "cmd">;
+export const generateAddDocumentCommandArgs: IGenerateAddDocumentFunction = ({ document }) => {
     const documentKeys = Object.keys(document);
     const initialAccumulator = { args: [] };
     if (!documentKeys.length) throw new Error("Empty or false Document Object given");
     return documentKeys.reduce((acc: Omit<ICommandReturn, "cmd">, currVal) => {
         return { args: [...acc.args, currVal, document[currVal] as string] };
     }, initialAccumulator);
+};
+
+type IGenerateSearchDocumentFunction = (params: ISearchDocuments) => ICommandReturn;
+export const generateSearchDocumentCommandArgs: IGenerateSearchDocumentFunction = ({ indexName, query, options }) => {
+    if (options) {
+        const optionsKeys = Object.keys(options);
+    }
+    return { cmd: RediSearchCommands.INDEX_SEARCH, args: [indexName, query] };
 };

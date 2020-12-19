@@ -7,11 +7,13 @@ import {
     getAllIndexes,
     addDocument as _addDocument,
 } from "./@features/index/indexList.service";
+import { searchDocuments as _searchDocuments } from "@features/index/indexSearch.service";
+import { ISearchDocuments } from "@features/index/types/index.type";
 
 export class RediSearchFuzzy {
     public readonly client;
 
-    constructor(redisClient: RedisClient) {
+    constructor(public redisClient: RedisClient) {
         this.client = redisClient;
     }
 
@@ -35,5 +37,7 @@ export class RediSearchFuzzy {
         return _addDocument({ context: this, key, document });
     }
 
-    // TASK: add searchDocuments() functionality here:
+    public searchDocuments(params: ISearchDocuments): Promise<unknown> {
+        return _searchDocuments({ ...params, context: this });
+    }
 }

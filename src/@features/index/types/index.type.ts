@@ -1,7 +1,7 @@
 import { RediSearchFuzzy } from "src";
 import { IObjectSchema } from "./ObjectSchema.type";
 
-interface IIndexParamsBase {
+export interface IIndexParamsBase {
     indexName: string;
     context: RediSearchFuzzy;
 }
@@ -22,9 +22,12 @@ export interface IAddDocumentParams {
     key: string;
 }
 
-export interface ISearchDocuments extends IIndexParamsBase {
+export interface ISearchDocuments {
+    indexName: string;
     query: string;
-    options: {
+    useFuzzy?: boolean;
+    customFn?: () => string;
+    options?: {
         /* Options explicitly described in: https://oss.redislabs.com/redisearch/Commands/#ftsearch */
         PAYLOAD?: unknown;
         NOCONTENT?: boolean;
