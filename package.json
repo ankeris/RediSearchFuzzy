@@ -1,7 +1,7 @@
 {
-    "name": "redisearch_fuzzy",
-    "version": "1.0.0",
-    "description": "",
+    "name": "RediSearchFuzzy",
+    "version": "0.0.1",
+    "description": "Simple Node Interface for RediSearch indexes. Implemented for RediSearch 2.x",
     "main": "index.js",
     "scripts": {
         "test": "jest",
