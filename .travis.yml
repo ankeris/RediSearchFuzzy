@@ -6,10 +6,11 @@ before_script:
 after_success:
     - npm run build
 before_deploy:
-    - mv package.json dist/package.json
-    - mv readme.md dist/readme.md
-    - mv LICENSE dist/LICENSE
+    - cp package.json dist/package.json
+    - cp readme.md dist/readme.md
+    - cp LICENSE dist/LICENSE
     - cd dist
+    - ls
 deploy:
     provider: npm
     email: aneke1234@gmail.com
@@ -20,3 +21,5 @@ deploy:
         repo: ankeris/RediSearchFuzzy
         branch: production
     skip_cleanup: "true"
+after_deploy:
+    - cd ..
