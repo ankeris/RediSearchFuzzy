@@ -13,9 +13,10 @@ before_deploy:
 deploy:
     provider: npm
     email: aneke1234@gmail.com
-    skip_cleanup: true
     api_key:
-        secure: ZMCH0V6dTWH1Dej/6PsmY4Ayzspciv8TSpbNcIaJCfX2X7KQiTzN+rQsTSOJOL4wqtL+hvaQ3N76rwGdvYDkP+8yV0F20JSUBdGApLiRqiXxUmL+ZwlDnjuYT9K/b4TNg/w/XViNdADoCnBEXq40dC7vD8vUOqI0y2XxDiwPMF/4l9er73GpzlnUch8oem9ELZYPD1RsE/zk8mhHWEOPBOX/3TxLbSpagzpDOFDpP+5B88oEQGu4lQmy3DjlzgmsX7/UQat+iCqcc9byj2cM8IMp6Ubxmq+vwCojN4Sx3nvsv04jirl57OD4FeAcVak4jFKx2fUYJDp327B8vUZx0jM5KOO/1wdd0iDxaVTNh3+R91Xx8ArF/DeikUPgh/HYWIZBEumkMogWkECjeWsIi77lPwrNMYizfq3CUyTbGYyLULOZ8JKNzZFY14mpl0jvCtajg7RVdxHlVJj94o+SKg5DTuMj+gfvFJh/QePvqBfZvqbePywCEm9JXI1NqxwNSSnkK8riC67TD3fBBs12NLikTXDzxAWUHhMq/ovFPa2WX7hEGT6OG7AUvoK9cPvFjKvVePcgs5x3r702KPaQGYxZ9NGiFwZ3fIHXz/QZwTRjr/3l/Q4pyrJYzm+EHN3ZVcHCSfuXTH1bm4k9KsUgNuW3orKl45MOtAETVp4GWs0=
+        secure: NcsOyx683ZzDtBxlihhPThnLln+tHtzxzz4liLv1d+pAugt/l2ZFExzUb+LZ0E/4aYM/gk8AIggERpweFNMyFGim+ZAqwoeL9JobdnvIvy1gCNfgg/+Dz0LXd0m9vDL4P4aOBfuu+123W9ZuFZqTGCxs4zGyEPDhsHcZ4fApnfJJS78RJ8eqBeZoPeUDvLxb+QQIuqSqdVLV7MXoajlkunj/wsbfK7RIJfwPNC9cMHkYH7cHd8KImVWJ5EQgwTv399+hjEZRb3M8R3hTuSBNbP9+s+f8M2A3zqVeEYyOCfP3Fe5qbgrUHBLwTRKZqtcHop+RLaBGV1osy7dt8InGF2WtkbKeTK1SzbCTlQEN78Nav0id0JaOQwVNLZEYadJ4IPbZDXeZ4jsXXjjkPItN32vx9OpQPOFOe8qEQ3atPcE1649AaTReAXIehObA0yfGezUk2g8DCcABEMSrcygO50IWZk54ZieMnQA6z47KLxAde3n1WdQWEBe8VpWUznClFZG+Va9v5CQ/BG49kGNnz8uU8eMwLK5EbkEIqlamw5xF7t1tyYPKYAbaly885Nf0IggiEhXqhR2PL9yN4do7CN9LKybE9g0wP48Jd+Wfmg71SzbydoA4hBlECeeHDzJmK+UIjjdoXJYnxzX+gICh8AO3oLKyMhk2NcedjWc5TaQ=
     on:
         tags: true
+        repo: ankeris/RediSearchFuzzy
         branch: production
+    skip_cleanup: "true"
