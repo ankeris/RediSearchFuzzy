@@ -1,3 +1,5 @@
-# `Redis Fuzzy Search`
+# `RediSearchFuzzy`
 
-### Implemented for RediSearch 2.x
+Simple Node Interface for RediSearch index. Implemented for RediSearch 2.x
+
+## Desc

@@ -6,7 +6,8 @@
     "scripts": {
         "test": "jest",
         "dev": "webpack",
-        "dev:server": "nodemon dist/testScript.js"
+        "dev:server": "nodemon dist/testScript.js",
+        "build": "webpack --env production"
     },
     "keywords": [],
     "author": "",
