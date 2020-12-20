@@ -95,5 +95,28 @@ describe("generateSchemaIndexCommand()", () => {
                 "TEXT",
             ],
         });
+        expect(
+            generateSchemaIndexCommand({
+                indexName: "myIdx",
+                schema: [{ field: "title", weight: 5.5 }, { field: "url" }],
+                options: ["ON", "HASH", "PAYLOAD_FIELD", "url"],
+            })
+        ).toEqual({
+            cmd: "FT.CREATE",
+            args: [
+                "myIdx",
+                "ON",
+                "HASH",
+                "PAYLOAD_FIELD",
+                "url",
+                "SCHEMA",
+                "title",
+                "TEXT",
+                "WEIGHT",
+                "5.5",
+                "url",
+                "TEXT",
+            ],
+        });
     });
 });

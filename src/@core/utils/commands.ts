@@ -1,4 +1,3 @@
-import { IObjectSchema } from "@features/index/types/ObjectSchema.type";
 import { RediSearchCommands } from "@enums/redisCommands.enum";
 import { ICreateIndexListParams, ISearchDocuments } from "@features/index/types/index.type";
 

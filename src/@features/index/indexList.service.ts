@@ -26,9 +26,8 @@ export const getInfoIndexList = ({
     context,
     indexName,
 }: IGetIndexListParams & IServiceWithContext): Promise<string[]> => {
-    return new Promise((resolve, reject) =>
-        context.client.send_command(RediSearchCommands.INDEX_INFO, [indexName], (err, info: string[]) => {
-            if (err) reject(err);
+    return new Promise((resolve) =>
+        context.client.send_command(RediSearchCommands.INDEX_INFO, [indexName], (_, info: string[]) => {
             resolve(info);
         })
     );

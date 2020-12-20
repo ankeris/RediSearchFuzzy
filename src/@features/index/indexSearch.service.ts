@@ -12,7 +12,7 @@ export const searchDocuments: SearchDocumentsFunction = ({ context, indexName, q
             options,
         });
         return new Promise((resolve, reject) =>
-            context.client.send_command(cmd, args, (err: unknown, info: unknown) => {
+            context.client.send_command(cmd, args, (err, info) => {
                 if (err) return reject(err);
                 resolve(info);
             })
