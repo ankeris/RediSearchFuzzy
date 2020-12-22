@@ -8,7 +8,7 @@ This library was created as an interface for RediSearch 2+ version for Nodejs.
 It provides a simple Node API to create, remove and interact with RediSearch's [_Secondary Indexing_](https://oss.redislabs.com/redisearch/). It also provides an additional functionality for Searching with Fuzzy strings.
 This library uses Promises and therefore supports ES6 async implementation over callbacks.
 
-Please note, that library does not contain ALL of RediSearch features and contributions are welcome.
+Please note, that this library does not contain ALL of RediSearch features and thus contributions are welcome.
 
 ## Installation
 
