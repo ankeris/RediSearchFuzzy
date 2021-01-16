@@ -44,7 +44,7 @@ export const convertStringToFuzzy = (string: string) => {
     const arrOfStrings = string.split(" ");
     const lastWord = arrOfStrings[arrOfStrings.length - 1];
     const wordsWrapperWithPercentSign = arrOfStrings.map((word) => `%${word}%`);
-    return `(${wordsWrapperWithPercentSign.join("&")}|${lastWord}*)`;
+    return `(${wordsWrapperWithPercentSign.join("|")}|${lastWord}*)`;
 };
 
 type IGenerateSearchDocumentFunction = (params: ISearchDocuments) => ICommandReturn;
