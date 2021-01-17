@@ -34,7 +34,13 @@ const init = async () => {
         myPayload: `{ data: "hello4" }`,
     });
     const infoAfterCreate = await Fuzzy.getInfoIndexList("FAVORITE_LIST");
-    const res = await Fuzzy.searchDocuments({ indexName: "FAVORITE_LIST", query: "Venom", useFuzzy: true });
+    const res = await Fuzzy.searchDocuments({
+        indexName: "FAVORITE_LIST",
+        query: "snake cobre venomus and capabl",
+        useFuzzy: true,
+        options: ["HIGHLIGHT"],
+    });
+    console.log(res);
 };
 
 init();

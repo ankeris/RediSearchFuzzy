@@ -43,8 +43,17 @@ export const convertStringToFuzzy = (string: string) => {
     if (!string.length || !string.trim().length) return "";
     const arrOfStrings = string.split(" ");
     const lastWord = arrOfStrings[arrOfStrings.length - 1];
-    const wordsWrapperWithPercentSign = arrOfStrings.map((word) => `%${word}%`);
-    return `(${wordsWrapperWithPercentSign.join("|")}|${lastWord}*)`;
+    const restArr = arrOfStrings.slice(0, arrOfStrings.length - 1);
+    if (Boolean(lastWord) && !restArr.length) {
+        return `(%${lastWord}%|${lastWord}*)`;
+    }
+    const joinedWordsArr = restArr.join(" ");
+    const wordsWrapperWithPercents = arrOfStrings.map((word) => `%${word}%`);
+    const result = `((${joinedWordsArr} ${lastWord})|(${joinedWordsArr} ${lastWord}*)|(${wordsWrapperWithPercents.join(
+        "|"
+    )}))`;
+    console.log(result);
+    return result;
 };
 
 type IGenerateSearchDocumentFunction = (params: ISearchDocuments) => ICommandReturn;
